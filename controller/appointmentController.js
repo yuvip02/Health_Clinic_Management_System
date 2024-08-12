@@ -56,13 +56,10 @@ export const postAppointment = catchAsyncErrors(async (req, res, next) => {
     }
 
     if (isConflict.length > 1) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message:
-            "Multiple conflicting doctors found. Please contact support.",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Multiple conflicting doctors found. Please contact support.",
+      });
     }
 
     const doctorId = isConflict[0]._id;

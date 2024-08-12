@@ -70,7 +70,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
   //     }
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    return next(new ErrorHandler("Iuser not found or wrong credentials", 400));
+    return next(new ErrorHandler("User not found or wrong credentials", 400));
   }
   const isPasswordMatched = await user.comparePassword(password);
   if (!isPasswordMatched) {
@@ -79,7 +79,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
   if (role !== user.role) {
     return next(new ErrorHandler("User with this role not found", 400));
   }
-  generateToken(user, "User Registered", 200, res);
+  generateToken(user, "User Logged in", 200, res);
 });
 
 export const adminRegister = catchAsyncErrors(async (req, res, next) => {
