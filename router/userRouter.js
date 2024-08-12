@@ -30,7 +30,7 @@ router.post("/doctors/addnew", isAdminAuthenticated, addNewDoctor);
 router.get("/admin/me", isAdminAuthenticated, getAllDetails);
 router.get("/patient/me", isPatientAuthenticated, getAllDetails);
 
-router.delete("/doctor/delete", deleteDoctor);
+router.delete("/doctor/delete/:id", deleteDoctor);
 
 router.get("/checkAuth", isPatientAuthenticated, (req, res) => {
   res.status(200).json({ isAuthenticated: true, user: req.user });
