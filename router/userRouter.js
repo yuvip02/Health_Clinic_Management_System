@@ -3,6 +3,7 @@ import {
   addNewDoctor,
   adminLogout,
   adminRegister,
+  deleteDoctor,
   getAllDetails,
   getAllDoctors,
   login,
@@ -28,6 +29,8 @@ router.post("/doctors/addnew", isAdminAuthenticated, addNewDoctor);
 
 router.get("/admin/me", isAdminAuthenticated, getAllDetails);
 router.get("/patient/me", isPatientAuthenticated, getAllDetails);
+
+router.delete("/doctor/delete", deleteDoctor);
 
 router.get("/checkAuth", isPatientAuthenticated, (req, res) => {
   res.status(200).json({ isAuthenticated: true, user: req.user });
