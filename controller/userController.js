@@ -256,3 +256,26 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
     doctor,
   });
 });
+
+export const deleteDoctor = catchAsyncErrors(async (req, res, next) => {
+  const doctorId = req.params.id;
+
+  const doctor = await User.findById(doctorId);
+
+  if (!doctor) {
+    return next(new ErrorHandler("Doctor not found", 404));
+  }
+
+  // Remove doctor's avatar from Cloudinary
+  if (doctor.docAvatar && doctor.docAvatar.public_id) {
+    await cloudinary.uploader.destroy(doctor.docAvatar.public_id);
+  }
+
+  // Use findByIdAndDelete instead of remove
+  await User.findByIdAndDelete(doctorId);
+
+  res.status(200).json({
+    success: true,
+    message: "Doctor deleted successfully",
+  });
+});
