@@ -5,6 +5,7 @@ import {
   postAppointment,
   updateAppointmentStatus,
   getUserAppointments,
+  getAppointmentById,
 } from "../controller/appointmentController.js";
 import {
   isPatientAuthenticated,
@@ -19,7 +20,6 @@ router.get("/getuserappointment", isPatientAuthenticated, getUserAppointments);
 
 router.put("/update/:id", isAdminAuthenticated, updateAppointmentStatus);
 router.get("/:id", isAdminAuthenticated, getAppointmentById);
-
 
 router.delete("/delete/:id", isAdminAuthenticated, deleteAppointment);
 
