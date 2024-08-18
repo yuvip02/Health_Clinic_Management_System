@@ -157,3 +157,18 @@ export const deleteAppointment = catchAsyncErrors(async (req, res, next) => {
   }
   res.status(200).json({ status: "true", message: "Appointment deleted" });
 });
+
+// Add this new function to your appointmentController.js
+export const getAppointmentById = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const appointment = await Appointment.findById(id);
+
+  if (!appointment) {
+    return next(new errorHandler("Appointment not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    appointment,
+  });
+});
